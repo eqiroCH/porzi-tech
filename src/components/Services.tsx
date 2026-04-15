@@ -9,7 +9,7 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ href, icon, title, description, delay }: ServiceCardProps) {
-  const { ref, isVisible } = useInView()
+  const { ref, isVisible } = useInView<HTMLAnchorElement>()
 
   const scrollTo = (e: React.MouseEvent) => {
     e.preventDefault()

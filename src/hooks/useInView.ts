@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useInView(threshold = 0.1, rootMargin = '0px 0px -40px 0px') {
-  const ref = useRef<HTMLDivElement>(null)
+export function useInView<T extends HTMLElement = HTMLDivElement>(
+  threshold = 0.1,
+  rootMargin = '0px 0px -40px 0px'
+) {
+  const ref = useRef<T>(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
