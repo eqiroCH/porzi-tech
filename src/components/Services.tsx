@@ -1,112 +1,185 @@
-import { useInView } from '../hooks/useInView'
+import { useState } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
-interface ServiceCardProps {
-  href: string
-  icon: React.ReactNode
-  title: string
-  description: string
-  delay: number
-}
+const EASE = [0.22, 1, 0.36, 1] as const
 
-function ServiceCard({ href, icon, title, description, delay }: ServiceCardProps) {
-  const { ref, isVisible } = useInView<HTMLAnchorElement>()
-
-  const scrollTo = (e: React.MouseEvent) => {
-    e.preventDefault()
-    const target = document.querySelector(href)
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 80
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
-  }
-
-  return (
-    <a
-      ref={ref}
-      href={href}
-      onClick={scrollTo}
-      className={`flex flex-col p-8 bg-white border border-gray-200 rounded-2xl transition-all duration-500 hover:border-accent hover:-translate-y-1 hover:shadow-xl
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      <div className="w-14 h-14 flex items-center justify-center bg-accent/[0.08] rounded-xl text-accent mb-5">
-        {icon}
-      </div>
-      <h3 className="text-lg font-bold text-primary mb-2">{title}</h3>
-      <p className="text-[0.95rem] text-gray-500 leading-relaxed flex-1">{description}</p>
-      <span className="mt-5 text-sm font-semibold text-accent">Mehr erfahren →</span>
-    </a>
-  )
-}
-
-const AutomationIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" className="w-8 h-8">
-    <rect x="6" y="6" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2.5"/>
-    <rect x="26" y="6" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2.5"/>
-    <rect x="6" y="26" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2.5"/>
-    <rect x="26" y="26" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2.5"/>
-    <circle cx="14" cy="14" r="3" fill="currentColor"/>
-    <circle cx="34" cy="34" r="3" fill="currentColor"/>
-    <line x1="17" y1="14" x2="26" y2="14" stroke="currentColor" strokeWidth="2" strokeDasharray="2 2"/>
-    <line x1="14" y1="22" x2="14" y2="26" stroke="currentColor" strokeWidth="2" strokeDasharray="2 2"/>
-  </svg>
-)
-
-const AnlagenIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" className="w-8 h-8">
-    <path d="M18 6L18 12M30 6L30 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-    <rect x="8" y="12" width="32" height="28" rx="3" stroke="currentColor" strokeWidth="2.5"/>
-    <path d="M16 22L22 28L32 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-)
-
-const IndustrieIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" className="w-8 h-8">
-    <rect x="8" y="14" width="32" height="24" rx="3" stroke="currentColor" strokeWidth="2.5"/>
-    <path d="M8 20H40" stroke="currentColor" strokeWidth="2.5"/>
-    <circle cx="24" cy="8" r="4" stroke="currentColor" strokeWidth="2.5"/>
-    <rect x="14" y="26" width="8" height="6" rx="1" stroke="currentColor" strokeWidth="2"/>
-    <rect x="26" y="26" width="8" height="6" rx="1" stroke="currentColor" strokeWidth="2"/>
-  </svg>
-)
-
-const FahrzeugIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" className="w-8 h-8">
-    <path d="M10 30V22C10 20 11 18 13 17L17 12H31L35 17C37 18 38 20 38 22V30" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <rect x="6" y="30" width="36" height="8" rx="2" stroke="currentColor" strokeWidth="2.5"/>
-    <circle cx="15" cy="38" r="4" stroke="currentColor" strokeWidth="2.5"/>
-    <circle cx="33" cy="38" r="4" stroke="currentColor" strokeWidth="2.5"/>
-    <line x1="18" y1="22" x2="30" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-  </svg>
-)
+const services = [
+  {
+    num: '01',
+    title: 'SPS-Programmierung & Steuerungsbau',
+    desc: 'Massgeschneiderte Steuerungsloesungen fuer Produktionsanlagen — von der Planung ueber die Programmierung bis zur Inbetriebnahme.',
+    tags: ['SPS-Programmierung', 'Elektroschema', 'Steuerungsbau', 'Inbetriebnahme'],
+    features: [
+      { label: 'Elektroschema-Erstellung', note: 'Professionelle Dokumentation nach aktuellen EN-Normen.' },
+      { label: 'SPS-Programmierung', note: 'Zuverlaessige Software auf Siemens S7/S5-Plattformen.' },
+      { label: 'Steuerungsschrank-Fertigung', note: 'Normgerecht verdrahtet, vollstaendig dokumentiert.' },
+      { label: 'Inbetriebnahme vor Ort', note: 'Inbetriebnahme, Optimierung & Schulung direkt im Betrieb.' },
+    ],
+  },
+  {
+    num: '02',
+    title: 'Anlagenservice & Revisionen',
+    desc: 'Schneller Service, Wartungsvertraege und fachgerechte Umbauten — damit Ihre Anlage laeuft.',
+    tags: ['Wartung', 'Reparatur', 'Umbauten', 'Vor-Ort-Service'],
+    features: [
+      { label: 'Revisionen', note: 'Regelmaessige Ueberpruefung fuer hohe Verfuegbarkeit.' },
+      { label: 'Stoerungsreparaturen', note: 'Schnelle Fehlerbehebung, kurze Reaktionszeiten.' },
+      { label: 'Umbauten & Modifikationen', note: 'Anpassung an neue Anforderungen und Prozesse.' },
+      { label: 'Montagen', note: 'Fachgerechte Installation von Anlagenkomponenten.' },
+    ],
+  },
+  {
+    num: '03',
+    title: 'Fahrzeugdiagnose & Autoservice',
+    desc: 'Professionelle OBD-Diagnose, Reparaturen und Inspektionen — transparent, schnell und ehrlich.',
+    tags: ['OBD-Diagnose', 'Reparatur', 'Inspektion', 'Fahrzeugelektrik'],
+    features: [
+      { label: 'OBD-II Diagnose', note: 'Alle gaengigen Marken, praezise Fehleranalyse.' },
+      { label: 'Reparaturen', note: 'Fahrzeugelektrik, Antrieb und allgemeine Technik.' },
+      { label: 'Service-Inspektionen', note: 'Wartung fuer Sicherheit und Langlebigkeit.' },
+      { label: 'Ehrliche Beratung', note: 'Transparent, direkt, ohne versteckte Kosten.' },
+    ],
+  },
+]
 
 export default function Services() {
-  const { ref, isVisible } = useInView()
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const reduce = useReducedMotion()
 
   return (
-    <section id="dienstleistungen" className="py-24 md:py-32 bg-white">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div
-          ref={ref}
-          className={`text-center max-w-xl mx-auto mb-16 transition-all duration-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
-          <span className="inline-block text-xs font-semibold uppercase tracking-[0.12em] text-accent mb-4">
-            Was wir tun
-          </span>
-          <h2 className="text-[clamp(2rem,4vw,2.75rem)] font-bold text-primary mb-5">
-            Unsere Dienstleistungen
-          </h2>
-          <p className="text-lg text-gray-500 leading-relaxed">
-            Ein breites Spektrum an technischen Lösungen – von der Industrieautomation bis zum Fahrzeugservice.
-          </p>
+    <section id="dienstleistungen" className="relative py-[clamp(72px,10vw,120px)] overflow-hidden"
+      style={{ background: 'var(--color-surface)' }}>
+      <div className="absolute inset-x-0 top-0 h-px" style={{ background: 'var(--color-border)' }} />
+
+      <div className="max-w-[1320px] mx-auto px-6 md:px-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.55 }}>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="block w-4 h-[2px] bg-[var(--color-accent)]" />
+              <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-[var(--color-accent)]">Leistungen</span>
+            </div>
+            <h2 className="font-black tracking-[-0.045em] text-[var(--color-text)] leading-[0.95]"
+              style={{ fontSize: 'clamp(2.2rem,5vw,4.2rem)' }}>
+              Services mit
+              <br />messbarem Nutzen
+            </h2>
+          </motion.div>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.55 }}
+            className="text-[0.92rem] max-w-[40ch] md:text-right leading-relaxed"
+            style={{ color: 'var(--color-text-muted)' }}>
+            Klicken Sie auf einen Bereich um Details zu sehen.
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <ServiceCard href="#automation" icon={<AutomationIcon />} title="Automation & Software" description="SPS-Programmierung und Elektroschema-Erstellung für Sondermaschinen aller Art." delay={0} />
-          <ServiceCard href="#anlagenservice" icon={<AnlagenIcon />} title="Anlagenservice" description="Revisionen, Reparaturen, Umbauten und Montagen an bestehenden Produktionsanlagen." delay={100} />
-          <ServiceCard href="#automation" icon={<IndustrieIcon />} title="Industrietechnik" description="Steuerungen und Automationsprodukte für Industrie und Lebensmittelverarbeitung." delay={200} />
-          <ServiceCard href="#fahrzeugtechnik" icon={<FahrzeugIcon />} title="Fahrzeugtechnik" description="Professionelle Reparatur- und Servicearbeiten an Personenwagen." delay={300} />
-        </div>
+        {/* Accordion list */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="rounded-2xl overflow-hidden"
+          style={{ border: '1px solid var(--color-border)', background: 'white' }}
+        >
+          {services.map((s, i) => {
+            const isOpen = openIndex === i
+            return (
+              <div key={s.num} style={{ borderBottom: i < services.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
+                {/* Row header — clickable */}
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full flex items-center gap-5 px-6 md:px-8 py-5 md:py-6 text-left group transition-colors duration-200"
+                  style={{ background: isOpen ? 'rgba(200,92,8,0.03)' : 'transparent' }}
+                >
+                  {/* Number */}
+                  <div className="text-[2rem] font-black shrink-0 leading-none select-none"
+                    style={{ color: isOpen ? 'rgba(200,92,8,0.35)' : 'rgba(200,92,8,0.18)', letterSpacing: '-0.04em', minWidth: '3.2rem' }}>
+                    {s.num}
+                  </div>
+
+                  {/* Title + tags */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-[1.08rem] md:text-[1.15rem] leading-snug transition-colors duration-200"
+                      style={{ color: isOpen ? 'var(--color-accent)' : 'var(--color-text)' }}>
+                      {s.title}
+                    </h3>
+                    <div className="hidden sm:flex flex-wrap gap-1.5 mt-1.5">
+                      {s.tags.map((tag) => (
+                        <span key={tag} className="text-[0.62rem] font-semibold px-2 py-0.5 rounded-full"
+                          style={{ background: 'var(--color-surface)', color: 'var(--color-text-muted)' }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Chevron */}
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: EASE }}
+                    className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200"
+                    style={{
+                      background: isOpen ? 'var(--color-accent)' : 'var(--color-surface)',
+                      color: isOpen ? 'white' : 'var(--color-text-muted)',
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M2.5 5l4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </motion.div>
+                </button>
+
+                {/* Expanded content */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="body"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.38, ease: EASE }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div className="px-6 md:px-8 pb-6 md:pb-8">
+                        {/* Description */}
+                        <p className="text-[0.9rem] leading-relaxed mb-5 max-w-[60ch]"
+                          style={{ color: 'var(--color-text-muted)' }}>
+                          {s.desc}
+                        </p>
+
+                        {/* Feature grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px"
+                          style={{ background: 'var(--color-border)' }}>
+                          {s.features.map((f, fi) => (
+                            <motion.div
+                              key={fi}
+                              initial={reduce ? {} : { opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: fi * 0.06, duration: 0.4 }}
+                              className="flex gap-3 p-4"
+                              style={{ background: 'var(--color-surface)' }}
+                            >
+                              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="mt-0.5 shrink-0">
+                                <circle cx="7" cy="7" r="6" fill="rgba(200,92,8,0.1)"/>
+                                <path d="M4 7l2 2 4-4" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                              <div>
+                                <div className="text-[0.84rem] font-bold text-[var(--color-text)] mb-0.5">{f.label}</div>
+                                <div className="text-[0.78rem] text-[var(--color-text-muted)] leading-relaxed">{f.note}</div>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )
+          })}
+        </motion.div>
       </div>
     </section>
   )

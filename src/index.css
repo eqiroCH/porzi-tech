@@ -1,21 +1,78 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0f2b46;
-  --color-primary-light: #1a3d5c;
-  --color-primary-dark: #091e33;
-  --color-accent: #e8872a;
-  --color-accent-light: #f5a54b;
-  --color-accent-dark: #d4751e;
+  /* Warm off-white backgrounds — premium, not sterile */
+  --color-bg: #F5F3F0;
+  --color-surface: #ECEDF4;
+  --color-surface-strong: #E4E6F0;
+  --color-border: #DDDFE9;
+
+  /* Text */
+  --color-text: #0C1422;
+  --color-text-muted: #566070;
+
+  /* Accent — single, purposeful orange */
+  --color-accent: #C85C08;
+  --color-accent-light: #E8872A;
+  --color-accent-dark: #9E4200;
+
+  /* Technical blue — sparingly for data labels */
+  --color-tech: #2B5C8E;
+  --color-tech-soft: #D5E6F8;
+
+  /* Dark sections */
+  --color-dark: #09111E;
+  --color-dark-2: #111D30;
+  --color-dark-surface: #172133;
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  background: var(--color-bg);
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ── Marquee ───────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ── Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: #C2CBE0; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #9AABC4; }
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
 }

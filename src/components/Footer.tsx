@@ -1,56 +1,94 @@
+const navLinks = [
+  { href: '#leistungswelten', label: 'Leistungen' },
+  { href: '#automation', label: 'Automation' },
+  { href: '#fahrzeugtechnik', label: 'Fahrzeugtechnik' },
+  { href: '#ablauf', label: 'Ablauf' },
+  { href: '#ueber-uns', label: 'Über uns' },
+  { href: '#kontakt', label: 'Kontakt' },
+]
+
 export default function Footer() {
-  const scrollTo = (e: React.MouseEvent, href: string) => {
+  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
-    const target = document.querySelector(href)
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 80
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
+    const el = document.querySelector(href)
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' })
   }
 
   return (
-    <footer className="bg-[#0c1f33] pt-16 pb-6">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/[0.08]">
+    <footer style={{ background: '#09111E', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="max-w-[1320px] mx-auto px-6 md:px-10 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 md:gap-16 mb-10">
+          {/* Brand */}
           <div>
-            <a href="#hero" onClick={(e) => scrollTo(e, '#hero')} className="inline-block text-xl font-extrabold mb-4">
+            <div className="text-[1.4rem] font-black tracking-[-0.03em] mb-3">
               <span className="text-white">PORZI</span>
-              <span className="text-accent">TECH</span>
-            </a>
-            <p className="text-white/50 text-sm leading-relaxed max-w-[320px]">
-              Ihr kompetenter Partner für Industrieautomation, Anlagenservice und Fahrzeugtechnik in Pfäffikon SZ.
+              <span style={{ color: '#C85C08' }}>TECH</span>
+            </div>
+            <p className="text-[0.875rem] text-white/45 leading-relaxed max-w-[34ch]">
+              Industrielle Automation und Fahrzeugtechnik aus Pfäffikon SZ. Schweizer Qualität seit 1991.
             </p>
           </div>
 
+          {/* Nav links */}
           <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-5">Dienstleistungen</h4>
-            <ul className="flex flex-col gap-2">
-              <li><a href="#automation" onClick={(e) => scrollTo(e, '#automation')} className="text-white/50 text-sm hover:text-accent-light transition-colors">Automation & Software</a></li>
-              <li><a href="#anlagenservice" onClick={(e) => scrollTo(e, '#anlagenservice')} className="text-white/50 text-sm hover:text-accent-light transition-colors">Anlagenservice</a></li>
-              <li><a href="#fahrzeugtechnik" onClick={(e) => scrollTo(e, '#fahrzeugtechnik')} className="text-white/50 text-sm hover:text-accent-light transition-colors">Fahrzeugtechnik</a></li>
+            <div className="text-[0.65rem] uppercase tracking-[0.2em] font-black text-white/30 mb-4">
+              Navigation
+            </div>
+            <ul className="space-y-2">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    onClick={(e) => scrollTo(e, l.href)}
+                    className="text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-5">Unternehmen</h4>
-            <ul className="flex flex-col gap-2">
-              <li><a href="#ueber-uns" onClick={(e) => scrollTo(e, '#ueber-uns')} className="text-white/50 text-sm hover:text-accent-light transition-colors">Über uns</a></li>
-              <li><a href="#kontakt" onClick={(e) => scrollTo(e, '#kontakt')} className="text-white/50 text-sm hover:text-accent-light transition-colors">Kontakt</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-5">Kontakt</h4>
-            <ul className="flex flex-col gap-2 text-white/50 text-sm">
-              <li>Churerstrasse 160A</li>
-              <li>8808 Pfäffikon SZ</li>
-              <li><a href="tel:+41555259808" className="hover:text-accent-light transition-colors">055 525 98 08</a></li>
-            </ul>
+            <div className="text-[0.65rem] uppercase tracking-[0.2em] font-black text-white/30 mb-4">
+              Kontakt
+            </div>
+            <address className="not-italic space-y-2">
+              <div className="text-[0.875rem] text-white/60 leading-relaxed">
+                PorziTech GmbH<br />
+                Industriestrasse 12<br />
+                8808 Pfäffikon SZ
+              </div>
+              <a href="tel:+41552200000" className="block text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200 mt-3">
+                +41 55 220 00 00
+              </a>
+              <a href="mailto:info@porzitech.ch" className="block text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200">
+                info@porzitech.ch
+              </a>
+            </address>
           </div>
         </div>
 
-        <div className="pt-5 text-center">
-          <p className="text-white/30 text-sm">&copy; {new Date().getFullYear()} Porzi Tech GmbH. Alle Rechte vorbehalten.</p>
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <p className="text-[0.72rem] text-white/28">
+            © {new Date().getFullYear()} PorziTech GmbH · Pfäffikon SZ · Alle Rechte vorbehalten
+          </p>
+          <div className="flex gap-4">
+            {['Impressum', 'Datenschutz'].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-[0.72rem] text-white/28 hover:text-white/55 transition-colors duration-200"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
