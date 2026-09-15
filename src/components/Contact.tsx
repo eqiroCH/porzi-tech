@@ -74,7 +74,7 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ delay: 0.15, duration: 0.6 }}
         >
-          Wir sind Mo - Fr von 07:30 bis 17:00 Uhr erreichbar - per Telefon oder E-Mail.
+          Wir sind Mo–Fr von 07:30 bis 17:00 Uhr erreichbar — per Telefon oder E-Mail.
         </motion.p>
 
         {/* Primary CTAs */}
@@ -160,14 +160,14 @@ export default function Contact() {
             <span aria-hidden className="absolute bottom-4 left-4 z-10 w-5 h-5 border-l border-b border-accent/30 rounded-bl-sm pointer-events-none"/>
             <span aria-hidden className="absolute bottom-4 right-4 z-10 w-5 h-5 border-r border-b border-accent/30 rounded-br-sm pointer-events-none"/>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2717.5!2d8.7835!3d47.2005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479ab1c1c4c5d0e9%3A0x0!2sChurerstrase+160a%2C+8808+Pf%C3%A4ffikon!5e0!3m2!1sde!2sch!4v1"
+              src="https://maps.google.com/maps?q=Churerstrasse+160A,+8808+Pf%C3%A4ffikon+SZ&z=16&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: 320 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Standort Porzi Tech GmbH"
+              title="Standort Porzi Tech GmbH, Churerstrasse 160A, Pfäffikon SZ"
             />
           </motion.div>
         </div>

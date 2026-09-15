@@ -103,7 +103,7 @@ export default function CtaBanner() {
             className="font-black text-white tracking-[-0.05em] leading-[0.92]"
             style={{ fontSize: 'clamp(3.2rem, 8vw, 8.5rem)' }}
           >
-            Lass uns
+            Lassen Sie uns
           </h2>
           <h2
             className="font-black tracking-[-0.05em] leading-[0.92]"

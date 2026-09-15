@@ -7,7 +7,7 @@ const lanes = [
     label: 'Bereich 01',
     title: 'Industrie & Automation',
     sub: 'Planung · Steuerung · Inbetriebnahme',
-    text: 'Maßgeschneiderte SPS-Programmierung, professioneller Steuerungsbau und schneller Anlagenservice — für Produktionsprozesse, die laufen müssen.',
+    text: 'Massgeschneiderte SPS-Programmierung, professioneller Steuerungsbau und schneller Anlagenservice — für Produktionsprozesse, die laufen müssen.',
     cta: 'Automation & Steuerungsbau',
     href: '#automation',
     points: ['SPS-Programmierung & Elektroschema', 'Steuerungsschrank-Fertigung', 'Revisionen, Reparaturen & Umbauten', 'Inbetriebnahme vor Ort'],

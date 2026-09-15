@@ -56,15 +56,15 @@ export default function Footer() {
             </div>
             <address className="not-italic space-y-2">
               <div className="text-[0.875rem] text-white/60 leading-relaxed">
-                PorziTech GmbH<br />
-                Industriestrasse 12<br />
+                Porzi Tech GmbH<br />
+                Churerstrasse 160A<br />
                 8808 Pfäffikon SZ
               </div>
-              <a href="tel:+41552200000" className="block text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200 mt-3">
-                +41 55 220 00 00
+              <a href="tel:+41555259808" className="block text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200 mt-3">
+                055 525 98 08
               </a>
-              <a href="mailto:info@porzitech.ch" className="block text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200">
-                info@porzitech.ch
+              <a href="mailto:info@porzi-tech.ch" className="block text-[0.875rem] text-white/50 hover:text-white/85 transition-colors duration-200">
+                info@porzi-tech.ch
               </a>
             </address>
           </div>
@@ -76,18 +76,23 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
           <p className="text-[0.72rem] text-white/28">
-            © {new Date().getFullYear()} PorziTech GmbH · Pfäffikon SZ · Alle Rechte vorbehalten
+            © {new Date().getFullYear()} Porzi Tech GmbH · Pfäffikon SZ · Alle Rechte vorbehalten
           </p>
           <div className="flex gap-4">
-            {['Impressum', 'Datenschutz'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-[0.72rem] text-white/28 hover:text-white/55 transition-colors duration-200"
-              >
-                {item}
-              </a>
-            ))}
+            <a
+              href="#impressum"
+              onClick={(e) => scrollTo(e, '#impressum')}
+              className="text-[0.72rem] text-white/28 hover:text-white/55 transition-colors duration-200"
+            >
+              Impressum
+            </a>
+            <a
+              href="#datenschutz"
+              onClick={(e) => scrollTo(e, '#datenschutz')}
+              className="text-[0.72rem] text-white/28 hover:text-white/55 transition-colors duration-200"
+            >
+              Datenschutz
+            </a>
           </div>
         </div>
       </div>

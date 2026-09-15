@@ -135,40 +135,43 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* Headline */}
-            <div className="overflow-hidden mb-2">
-              <motion.h1
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                className="font-black tracking-[-0.05em] text-white leading-[0.93]"
-                style={{ fontSize: 'clamp(3.2rem, 8vw, 8rem)' }}
-              >
-                Technik
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden mb-2">
-              <motion.h1
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.19 }}
-                className="font-black tracking-[-0.05em] text-white leading-[0.93]"
-                style={{ fontSize: 'clamp(3.2rem, 8vw, 8rem)' }}
-              >
-                die
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden mb-10">
-              <motion.h1
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
-                className="font-black tracking-[-0.05em] leading-[0.93]"
-                style={{ fontSize: 'clamp(3.2rem, 8vw, 8rem)', color: '#C85C08' }}
-              >
-                Bestand hat.
-              </motion.h1>
-            </div>
+            {/* Headline — single h1 for SEO */}
+            <h1
+              className="font-black tracking-[-0.05em] leading-[0.93] mb-10"
+              style={{ fontSize: 'clamp(3.2rem, 8vw, 8rem)' }}
+            >
+              <span className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                  className="block text-white"
+                >
+                  Technik
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.19 }}
+                  className="block text-white"
+                >
+                  die
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+                  className="block"
+                  style={{ color: '#C85C08' }}
+                >
+                  Bestand hat.
+                </motion.span>
+              </span>
+            </h1>
 
             {/* Description */}
             <motion.p
