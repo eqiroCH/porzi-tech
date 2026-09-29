@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0f2b46"/>
-  <text x="4" y="23" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#ffffff">P</text>
-  <text x="15" y="23" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#e8872a">T</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="176 -2 335 300">
+  <path d="M263 8 H424 L501 143 L424 278 H263 L186 143 Z" fill="#FFFFFF" stroke="#4B8385" stroke-width="22"/>
+  <g stroke="#3F7778" stroke-width="20" fill="none">
+    <path d="M276 186 V121 A26 22 0 1 1 302 143 H276"/>
+    <path d="M341 100 H418 M380 100 V186"/>
+  </g>
 </svg>

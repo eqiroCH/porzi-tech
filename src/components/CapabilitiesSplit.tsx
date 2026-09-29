@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { Link } from 'react-router'
 import { springSnappy } from '../lib/motion'
 
 const lanes = [
@@ -8,8 +9,10 @@ const lanes = [
     title: 'Industrie & Automation',
     sub: 'Planung · Steuerung · Inbetriebnahme',
     text: 'Massgeschneiderte SPS-Programmierung, professioneller Steuerungsbau und schneller Anlagenservice — für Produktionsprozesse, die laufen müssen.',
-    cta: 'Automation & Steuerungsbau',
-    href: '#automation',
+    links: [
+      { to: '/automation', label: 'Automation & Steuerungsbau' },
+      { to: '/anlagenservice', label: 'Anlagenservice' },
+    ],
     points: ['SPS-Programmierung & Elektroschema', 'Steuerungsschrank-Fertigung', 'Revisionen, Reparaturen & Umbauten', 'Inbetriebnahme vor Ort'],
     dark: true,
   },
@@ -19,8 +22,9 @@ const lanes = [
     title: 'Fahrzeugtechnik',
     sub: 'Diagnose · Reparatur · Service',
     text: 'Präziser Fahrzeugservice mit transparenter Beratung und ehrlichen Kosten — für Privatpersonen, die zuverlässige Arbeit schätzen.',
-    cta: 'Fahrzeugtechnik',
-    href: '#fahrzeugtechnik',
+    links: [
+      { to: '/fahrzeugtechnik', label: 'Fahrzeugtechnik' },
+    ],
     points: ['Professionelle OBD-Diagnose', 'Reparaturen aller Art', 'Service-Inspektionen', 'Ehrliche, transparente Beratung'],
     dark: false,
   },
@@ -28,11 +32,6 @@ const lanes = [
 
 export default function CapabilitiesSplit() {
   const reduce = useReducedMotion()
-  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    const el = document.querySelector(href)
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' })
-  }
 
   return (
     <section id="leistungswelten" className="relative py-[clamp(72px,10vw,120px)]" style={{ background: 'var(--color-bg)' }}>
@@ -77,12 +76,12 @@ export default function CapabilitiesSplit() {
               transition={{ delay: i * 0.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="group rounded-2xl p-8 md:p-10 flex flex-col"
               style={{
-                background: lane.dark ? '#0F1C2E' : 'white',
-                border: lane.dark ? '1px solid rgba(58,106,159,0.3)' : '1px solid var(--color-border)',
+                background: lane.dark ? '#102223' : 'white',
+                border: lane.dark ? '1px solid rgba(75,131,133,0.3)' : '1px solid var(--color-border)',
               }}
               whileHover={reduce ? {} : { y: -5, transition: springSnappy }}
             >
-              <div className={`text-[0.68rem] font-black uppercase tracking-[0.22em] mb-5 ${lane.dark ? 'text-[#6A9FC8]' : 'text-[var(--color-tech)]'}`}>
+              <div className={`text-[0.68rem] font-black uppercase tracking-[0.22em] mb-5 ${lane.dark ? 'text-accent-light' : 'text-[var(--color-tech)]'}`}>
                 {lane.label}
               </div>
 
@@ -93,7 +92,7 @@ export default function CapabilitiesSplit() {
                 {lane.title}
               </h3>
 
-              <p className={`text-[0.78rem] font-semibold tracking-[0.04em] mb-5 ${lane.dark ? 'text-[#C85C08]' : 'text-[var(--color-text-muted)]'}`}>
+              <p className={`text-[0.78rem] font-semibold tracking-[0.04em] mb-5 ${lane.dark ? 'text-accent-light' : 'text-[var(--color-text-muted)]'}`}>
                 {lane.sub}
               </p>
 
@@ -109,28 +108,32 @@ export default function CapabilitiesSplit() {
                 {lane.points.map((pt) => (
                   <li key={pt} className={`flex items-center gap-3 text-[0.86rem] ${lane.dark ? 'text-white/80' : 'text-[var(--color-text)]'}`}>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <circle cx="7" cy="7" r="6" fill={lane.dark ? 'rgba(200,92,8,0.18)' : 'rgba(200,92,8,0.1)'} />
-                      <path d="M4 7l2 2 4-4" stroke="#C85C08" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="7" cy="7" r="6" fill={lane.dark ? 'rgba(75,131,133,0.18)' : 'rgba(75,131,133,0.1)'} />
+                      <path d="M4 7l2 2 4-4" stroke="#A9CFCF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     {pt}
                   </li>
                 ))}
               </ul>
 
-              <a
-                href={lane.href}
-                onClick={(e) => scrollTo(e, lane.href)}
-                className={`inline-flex items-center gap-2 text-[0.84rem] font-bold transition-all duration-200 ${
-                  lane.dark
-                    ? 'text-[#C85C08] hover:text-[#E8872A]'
-                    : 'text-[var(--color-accent)] hover:text-[var(--color-accent-dark)]'
-                }`}
-              >
-                Mehr zu {lane.cta}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:translate-x-1 transition-transform duration-200">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
+              <div className="flex flex-wrap gap-x-6 gap-y-3">
+                {lane.links.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    className={`group/link inline-flex items-center gap-2 text-[0.84rem] font-bold transition-all duration-200 ${
+                      lane.dark
+                        ? 'text-accent-light hover:text-white'
+                        : 'text-[var(--color-accent)] hover:text-[var(--color-accent-dark)]'
+                    }`}
+                  >
+                    Mehr zu {l.label}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover/link:translate-x-1 transition-transform duration-200">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </Link>
+                ))}
+              </div>
             </motion.article>
           ))}
         </div>

@@ -1,29 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Warm off-white backgrounds — premium, not sterile */
-  --color-bg: #F5F3F0;
-  --color-surface: #ECEDF4;
-  --color-surface-strong: #E4E6F0;
-  --color-border: #DDDFE9;
+  /* Cool neutral backgrounds, tinted towards the brand teal */
+  --color-bg: #F4F6F5;
+  --color-surface: #E9EFEE;
+  --color-surface-strong: #DDE6E5;
+  --color-border: #D3DEDD;
 
   /* Text */
-  --color-text: #0C1422;
-  --color-text-muted: #566070;
+  --color-text: #0F1D1E;
+  --color-text-muted: #526564;
 
-  /* Accent — single, purposeful orange */
-  --color-accent: #C85C08;
-  --color-accent-light: #E8872A;
-  --color-accent-dark: #9E4200;
+  /* Brand teal from the logo (#4B8385); accent is darkened for WCAG contrast with white text */
+  --color-brand: #4B8385;
+  --color-accent: #3F7778;
+  --color-accent-light: #86B8B8;
+  --color-accent-dark: #2B5657;
 
-  /* Technical blue — sparingly for data labels */
-  --color-tech: #2B5C8E;
-  --color-tech-soft: #D5E6F8;
+  /* Secondary label colour */
+  --color-tech: #35595A;
+  --color-tech-soft: #D6E6E6;
 
-  /* Dark sections */
-  --color-dark: #09111E;
-  --color-dark-2: #111D30;
-  --color-dark-surface: #172133;
+  /* Dark sections — deep green-black from the logo lines */
+  --color-dark: #0B1718;
+  --color-dark-2: #122324;
+  --color-dark-surface: #1A3031;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -59,8 +60,8 @@ body {
 /* ── Scrollbar ─────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--color-surface); }
-::-webkit-scrollbar-thumb { background: #C2CBE0; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #9AABC4; }
+::-webkit-scrollbar-thumb { background: #B6C9C8; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #8BA8A7; }
 
 ::selection {
   background: color-mix(in srgb, var(--color-accent) 22%, transparent);

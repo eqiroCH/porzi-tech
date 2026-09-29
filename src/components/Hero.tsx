@@ -1,6 +1,9 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { Link } from 'react-router'
 import { springBouncy, springSnappy } from '../lib/motion'
+
+const MotionLink = motion.create(Link)
 
 const kpis = [
   { value: '35+', label: 'Jahre Erfahrung' },
@@ -18,44 +21,53 @@ function HeroMark() {
       aria-hidden="true"
     >
       {/* Industrie-Block */}
-      <rect x="24" y="28" width="168" height="130" rx="10" fill="#111D30" stroke="#3A6A9F" strokeOpacity="0.5" strokeWidth="1.5"/>
-      <text x="38" y="56" fontFamily="ui-monospace,monospace" fontSize="8.5" fill="#6A9FC8" letterSpacing="2" fontWeight="700">INDUSTRIE</text>
+      <rect x="24" y="28" width="168" height="130" rx="10" fill="#122324" stroke="#4B8385" strokeOpacity="0.5" strokeWidth="1.5"/>
+      <text x="38" y="56" fontFamily="ui-monospace,monospace" fontSize="8.5" fill="#86B8B8" letterSpacing="2" fontWeight="700">INDUSTRIE</text>
       <text x="38" y="80" fontFamily="ui-monospace,monospace" fontSize="14" fill="#FFFFFF" fillOpacity="0.88">SPS &amp;</text>
       <text x="38" y="100" fontFamily="ui-monospace,monospace" fontSize="14" fill="#FFFFFF" fillOpacity="0.88">AUTOMATION</text>
       <text x="38" y="120" fontFamily="ui-monospace,monospace" fontSize="10" fill="#FFFFFF" fillOpacity="0.38">Steuerungsbau</text>
-      <circle cx="175" cy="44" r="5" fill="#C85C08" fillOpacity="0.9"/>
+      <circle cx="175" cy="44" r="5" fill="#A9CFCF" fillOpacity="0.9"/>
 
       {/* Fahrzeug-Block */}
-      <rect x="268" y="224" width="168" height="130" rx="10" fill="#111D30" stroke="#C85C08" strokeOpacity="0.55" strokeWidth="1.5"/>
-      <text x="282" y="252" fontFamily="ui-monospace,monospace" fontSize="8.5" fill="#C85C08" letterSpacing="2" fontWeight="700">FAHRZEUG</text>
+      <rect x="268" y="224" width="168" height="130" rx="10" fill="#122324" stroke="#A9CFCF" strokeOpacity="0.55" strokeWidth="1.5"/>
+      <text x="282" y="252" fontFamily="ui-monospace,monospace" fontSize="8.5" fill="#A9CFCF" letterSpacing="2" fontWeight="700">FAHRZEUG</text>
       <text x="282" y="276" fontFamily="ui-monospace,monospace" fontSize="14" fill="#FFFFFF" fillOpacity="0.88">DIAGNOSE &amp;</text>
       <text x="282" y="296" fontFamily="ui-monospace,monospace" fontSize="14" fill="#FFFFFF" fillOpacity="0.88">SERVICE</text>
       <text x="282" y="316" fontFamily="ui-monospace,monospace" fontSize="10" fill="#FFFFFF" fillOpacity="0.38">Personenwagen</text>
 
       {/* Zentral-Node */}
-      <rect x="156" y="134" width="148" height="112" rx="14" fill="#1A2C46" stroke="#C85C08" strokeOpacity="0.65" strokeWidth="2"/>
-      <text x="230" y="170" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="10" fill="#C8885A" letterSpacing="2.5" fontWeight="700">PORZITECH</text>
-      <rect x="176" y="178" width="108" height="1.5" fill="#FFFFFF" fillOpacity="0.1"/>
-      <text x="230" y="196" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="8" fill="#FFFFFF" fillOpacity="0.45">Pfäffikon SZ · seit 1991</text>
-      <circle cx="230" cy="218" r="5" fill="#4ADE80" fillOpacity="0.85"/>
-      <path d="M227 218 L223 214 M233 218 L237 214" stroke="#4ADE80" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round"/>
+      <rect x="156" y="134" width="148" height="112" rx="14" fill="#1A3031" stroke="#A9CFCF" strokeOpacity="0.65" strokeWidth="2"/>
+      <g transform="translate(185.35 140.4) scale(0.13)">
+        <path d="M263 8 H424 L501 143 L424 278 H263 L186 143 Z" stroke="#86B8B8" strokeWidth="17"/>
+        <g stroke="#4B8385" strokeWidth="16">
+          <path d="M110 100 H215 M54 143 H190 M110 188 H215 M472 100 H577 M497 143 H634 M472 188 H577"/>
+        </g>
+        <g stroke="#A9CFCF" strokeWidth="14">
+          <path d="M276 186 V121 A26 22 0 1 1 302 143 H276"/>
+          <path d="M341 100 H418 M380 100 V186"/>
+        </g>
+      </g>
+      <rect x="176" y="186" width="108" height="1.5" fill="#FFFFFF" fillOpacity="0.1"/>
+      <text x="230" y="203" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="8" fill="#FFFFFF" fillOpacity="0.45">Pfäffikon SZ · seit 1991</text>
+      <circle cx="230" cy="224" r="5" fill="#4ADE80" fillOpacity="0.85"/>
+      <path d="M227 224 L223 220 M233 224 L237 220" stroke="#4ADE80" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round"/>
 
       {/* Connecting lines */}
-      <path d="M192 134 L150 92" stroke="#3A6A9F" strokeOpacity="0.5" strokeWidth="1.5" strokeDasharray="5 4"/>
-      <path d="M268 200 L312 252" stroke="#C85C08" strokeOpacity="0.55" strokeWidth="1.5" strokeDasharray="5 4"/>
-      <path d="M156 190 L68 190" stroke="#3A6A9F" strokeOpacity="0.4" strokeWidth="1.5"/>
-      <path d="M304 190 L392 190" stroke="#C85C08" strokeOpacity="0.4" strokeWidth="1.5"/>
+      <path d="M192 134 L150 92" stroke="#4B8385" strokeOpacity="0.5" strokeWidth="1.5" strokeDasharray="5 4"/>
+      <path d="M268 200 L312 252" stroke="#A9CFCF" strokeOpacity="0.55" strokeWidth="1.5" strokeDasharray="5 4"/>
+      <path d="M156 190 L68 190" stroke="#4B8385" strokeOpacity="0.4" strokeWidth="1.5"/>
+      <path d="M304 190 L392 190" stroke="#A9CFCF" strokeOpacity="0.4" strokeWidth="1.5"/>
 
-      <circle cx="68" cy="190" r="7" fill="#3A6A9F" fillOpacity="0.8"/>
-      <text x="68" y="213" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="7" fill="#6A9FC8" fillOpacity="0.75">INPUT</text>
-      <circle cx="392" cy="190" r="7" fill="#C85C08" fillOpacity="0.85"/>
-      <text x="392" y="213" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="7" fill="#C85C08" fillOpacity="0.75">OUTPUT</text>
+      <circle cx="68" cy="190" r="7" fill="#4B8385" fillOpacity="0.8"/>
+      <text x="68" y="213" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="7" fill="#86B8B8" fillOpacity="0.75">INPUT</text>
+      <circle cx="392" cy="190" r="7" fill="#A9CFCF" fillOpacity="0.85"/>
+      <text x="392" y="213" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="7" fill="#A9CFCF" fillOpacity="0.75">OUTPUT</text>
 
       {/* Corner markers */}
-      <path d="M14 42 L14 14 L42 14" stroke="#C85C08" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M446 42 L446 14 L418 14" stroke="#C85C08" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M14 338 L14 366 L42 366" stroke="#C85C08" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M446 338 L446 366 L418 366" stroke="#C85C08" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M14 42 L14 14 L42 14" stroke="#A9CFCF" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M446 42 L446 14 L418 14" stroke="#A9CFCF" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M14 338 L14 366 L42 366" stroke="#A9CFCF" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M446 338 L446 366 L418 366" stroke="#A9CFCF" strokeOpacity="0.35" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -79,7 +91,7 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       className="relative overflow-hidden min-h-screen flex items-center"
-      style={{ background: '#09111E' }}
+      style={{ background: '#0B1718' }}
     >
       {/* Grid texture */}
       <div
@@ -91,7 +103,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Glow — top-right orange */}
+      {/* Glow — top-right teal */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -99,7 +111,7 @@ export default function Hero() {
           right: '-120px',
           width: '560px',
           height: '560px',
-          background: 'radial-gradient(circle, rgba(200,92,8,0.18) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(75,131,133,0.18) 0%, transparent 65%)',
           filter: 'blur(40px)',
         }}
       />
@@ -112,7 +124,7 @@ export default function Hero() {
           left: '-80px',
           width: '400px',
           height: '400px',
-          background: 'radial-gradient(circle, rgba(43,92,142,0.14) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(75,131,133,0.14) 0%, transparent 65%)',
           filter: 'blur(40px)',
         }}
       />
@@ -129,7 +141,7 @@ export default function Hero() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="flex items-center gap-3 mb-8"
             >
-              <span className="block w-5 h-[2px] bg-[#C85C08]" />
+              <span className="block w-5 h-[2px] bg-accent-light" />
               <span className="text-[0.72rem] font-black uppercase tracking-[0.22em] text-white/55">
                 Seit 1991 · Pfäffikon SZ
               </span>
@@ -166,7 +178,7 @@ export default function Hero() {
                   animate={{ y: '0%' }}
                   transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
                   className="block"
-                  style={{ color: '#C85C08' }}
+                  style={{ color: 'var(--color-accent-light)' }}
                 >
                   Bestand hat.
                 </motion.span>
@@ -191,17 +203,16 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.85, duration: 0.55 }}
             >
-              <motion.a
-                href="#kontakt"
-                onClick={(e) => scrollTo(e, '#kontakt')}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-[#C85C08] text-white font-bold rounded-lg text-[0.9rem]"
-                whileHover={reduce ? {} : { scale: 1.03, boxShadow: '0 14px 44px rgba(200,92,8,0.4)' }}
+              <MotionLink
+                to="/kontakt"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-accent hover:bg-accent-dark transition-colors text-white font-bold rounded-lg text-[0.9rem]"
+                whileHover={reduce ? {} : { scale: 1.03, boxShadow: '0 14px 44px rgba(75,131,133,0.4)' }}
                 whileTap={{ scale: 0.97 }}
                 transition={springBouncy}
               >
                 Projekt besprechen
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </motion.a>
+              </MotionLink>
               <motion.a
                 href="#leistungswelten"
                 onClick={(e) => scrollTo(e, '#leistungswelten')}
@@ -248,9 +259,9 @@ export default function Hero() {
             <div
               className="rounded-2xl p-4"
               style={{
-                background: 'rgba(17,29,48,0.85)',
+                background: 'rgba(18,35,36,0.85)',
                 border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: '0 32px 80px rgba(7,12,22,0.5)',
+                boxShadow: '0 32px 80px rgba(4,10,10,0.5)',
               }}
             >
               <div className="rounded-xl overflow-hidden">

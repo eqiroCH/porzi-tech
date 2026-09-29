@@ -68,7 +68,7 @@ export default function ProcessFlow() {
               {/* Large watermark number */}
               <div
                 className="text-[5rem] font-black leading-none mb-2 select-none"
-                style={{ color: 'rgba(200,92,8,0.1)', letterSpacing: '-0.05em' }}
+                style={{ color: 'rgba(75,131,133,0.1)', letterSpacing: '-0.05em' }}
               >
                 {step.num}
               </div>

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { Link } from 'react-router'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
 const services = [
   {
     num: '01',
+    href: '/automation',
     title: 'SPS-Programmierung & Steuerungsbau',
     desc: 'Massgeschneiderte Steuerungslösungen für Produktionsanlagen — von der Planung über die Programmierung bis zur Inbetriebnahme.',
     tags: ['SPS-Programmierung', 'Elektroschema', 'Steuerungsbau', 'Inbetriebnahme'],
@@ -18,6 +20,7 @@ const services = [
   },
   {
     num: '02',
+    href: '/anlagenservice',
     title: 'Anlagenservice & Revisionen',
     desc: 'Schneller Service, Wartungsverträge und fachgerechte Umbauten — damit Ihre Anlage läuft.',
     tags: ['Wartung', 'Reparatur', 'Umbauten', 'Vor-Ort-Service'],
@@ -30,6 +33,7 @@ const services = [
   },
   {
     num: '03',
+    href: '/fahrzeugtechnik',
     title: 'Fahrzeugdiagnose & Autoservice',
     desc: 'Professionelle OBD-Diagnose, Reparaturen und Inspektionen — transparent, schnell und ehrlich.',
     tags: ['OBD-Diagnose', 'Reparatur', 'Inspektion', 'Fahrzeugelektrik'],
@@ -91,11 +95,11 @@ export default function Services() {
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center gap-5 px-6 md:px-8 py-5 md:py-6 text-left group transition-colors duration-200"
-                  style={{ background: isOpen ? 'rgba(200,92,8,0.03)' : 'transparent' }}
+                  style={{ background: isOpen ? 'rgba(75,131,133,0.03)' : 'transparent' }}
                 >
                   {/* Number */}
                   <div className="text-[2rem] font-black shrink-0 leading-none select-none"
-                    style={{ color: isOpen ? 'rgba(200,92,8,0.35)' : 'rgba(200,92,8,0.18)', letterSpacing: '-0.04em', minWidth: '3.2rem' }}>
+                    style={{ color: isOpen ? 'rgba(75,131,133,0.35)' : 'rgba(75,131,133,0.18)', letterSpacing: '-0.04em', minWidth: '3.2rem' }}>
                     {s.num}
                   </div>
 
@@ -162,7 +166,7 @@ export default function Services() {
                               style={{ background: 'var(--color-surface)' }}
                             >
                               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="mt-0.5 shrink-0">
-                                <circle cx="7" cy="7" r="6" fill="rgba(200,92,8,0.1)"/>
+                                <circle cx="7" cy="7" r="6" fill="rgba(75,131,133,0.1)"/>
                                 <path d="M4 7l2 2 4-4" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                               </svg>
                               <div>
@@ -172,6 +176,16 @@ export default function Services() {
                             </motion.div>
                           ))}
                         </div>
+
+                        <Link
+                          to={s.href}
+                          className="group/link inline-flex items-center gap-2 mt-6 text-[0.84rem] font-bold text-[var(--color-accent)] hover:text-[var(--color-accent-dark)] transition-colors duration-200"
+                        >
+                          Details ansehen
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover/link:translate-x-1 transition-transform duration-200">
+                            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </Link>
                       </div>
                     </motion.div>
                   )}

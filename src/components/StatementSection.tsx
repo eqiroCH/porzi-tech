@@ -12,7 +12,7 @@ const facts = [
 
 export default function StatementSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: '#09111E' }}>
+    <section className="relative overflow-hidden" style={{ background: '#0B1718' }}>
       {/* Grid texture */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -21,10 +21,10 @@ export default function StatementSection() {
           backgroundSize: '80px 80px',
         }}
       />
-      {/* Orange glow */}
+      {/* Teal glow */}
       <div className="absolute pointer-events-none"
         style={{ top: '-80px', left: '-100px', width: '600px', height: '600px',
-          background: 'radial-gradient(circle, rgba(200,92,8,0.12) 0%, transparent 60%)', filter: 'blur(60px)' }}
+          background: 'radial-gradient(circle, rgba(75,131,133,0.12) 0%, transparent 60%)', filter: 'blur(60px)' }}
       />
 
       <div className="relative z-10 max-w-[1320px] mx-auto px-6 md:px-10 pt-[clamp(72px,10vw,110px)] pb-[clamp(56px,8vw,90px)]">
@@ -37,8 +37,8 @@ export default function StatementSection() {
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-12"
         >
           <div className="flex items-center gap-3">
-            <span className="block w-4 h-[2px] bg-[#C85C08]" />
-            <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-[#C85C08]">
+            <span className="block w-4 h-[2px] bg-accent-light" />
+            <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-accent-light">
               Unser Versprechen
             </span>
           </div>
@@ -48,14 +48,14 @@ export default function StatementSection() {
           </p>
         </motion.div>
 
-        {/* Animated orange rule */}
+        {/* Animated teal rule */}
         <motion.div
           className="mb-12"
           initial={{ scaleX: 0, originX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.0, ease: EASE }}
-          style={{ height: '1px', background: 'rgba(200,92,8,0.4)' }}
+          style={{ height: '1px', background: 'rgba(75,131,133,0.4)' }}
         />
 
         {/* STATS — the main typographic event */}
@@ -88,14 +88,14 @@ export default function StatementSection() {
           ))}
         </div>
 
-        {/* Animated orange rule */}
+        {/* Animated teal rule */}
         <motion.div
           className="mb-10"
           initial={{ scaleX: 0, originX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.0, ease: EASE, delay: 0.3 }}
-          style={{ height: '1px', background: 'rgba(200,92,8,0.4)' }}
+          style={{ height: '1px', background: 'rgba(75,131,133,0.4)' }}
         />
 
         {/* Context paragraph */}

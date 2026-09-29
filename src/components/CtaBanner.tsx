@@ -1,5 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { Link } from 'react-router'
 import { springBouncy, springSnappy } from '../lib/motion'
+
+const MotionLink = motion.create(Link)
 
 const contactTiles = [
   {
@@ -32,7 +35,7 @@ const contactTiles = [
     ),
     label: 'Öffnungszeiten',
     value: 'Mo–Fr 07:30–17:00',
-    href: '#kontakt',
+    href: '/kontakt',
   },
   {
     icon: (
@@ -43,21 +46,15 @@ const contactTiles = [
     ),
     label: 'Standort',
     value: 'Pfäffikon SZ',
-    href: '#kontakt',
+    href: '/kontakt',
   },
 ]
 
 export default function CtaBanner() {
   const reduce = useReducedMotion()
 
-  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    const el = document.querySelector(href)
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' })
-  }
-
   return (
-    <section className="relative overflow-hidden" style={{ background: '#09111E' }}>
+    <section className="relative overflow-hidden" style={{ background: '#0B1718' }}>
       {/* Arch top transition */}
       <div className="absolute top-0 inset-x-0 pointer-events-none z-10" style={{ lineHeight: 0 }}>
         <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none"
@@ -70,9 +67,9 @@ export default function CtaBanner() {
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{ backgroundImage: 'linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)', backgroundSize: '80px 80px' }}
       />
-      {/* Orange glow */}
+      {/* Teal glow */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,92,8,0.14) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(75,131,133,0.14) 0%, transparent 70%)' }}
       />
 
       <div className="relative z-20 max-w-[1320px] mx-auto px-6 md:px-10 pt-24 pb-[clamp(72px,10vw,120px)]">
@@ -84,11 +81,11 @@ export default function CtaBanner() {
           transition={{ duration: 0.5 }}
           className="flex items-center justify-center gap-3 mb-8"
         >
-          <span className="block w-4 h-[2px] bg-[#C85C08]" />
-          <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-[#C85C08]">
+          <span className="block w-4 h-[2px] bg-accent-light" />
+          <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-accent-light">
             Jetzt Kontakt aufnehmen
           </span>
-          <span className="block w-4 h-[2px] bg-[#C85C08]" />
+          <span className="block w-4 h-[2px] bg-accent-light" />
         </motion.div>
 
         {/* Main headline — always visible, no clip/y-offset */}
@@ -107,7 +104,7 @@ export default function CtaBanner() {
           </h2>
           <h2
             className="font-black tracking-[-0.05em] leading-[0.92]"
-            style={{ fontSize: 'clamp(3.2rem, 8vw, 8.5rem)', color: '#C85C08' }}
+            style={{ fontSize: 'clamp(3.2rem, 8vw, 8.5rem)', color: 'var(--color-accent-light)' }}
           >
             sprechen.
           </h2>
@@ -131,25 +128,25 @@ export default function CtaBanner() {
           transition={{ delay: 0.4, duration: 0.65 }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10"
         >
-          {contactTiles.map((tile) => (
-            <a
-              key={tile.label}
-              href={tile.href}
-              onClick={tile.href.startsWith('#') ? (e) => scrollTo(e as React.MouseEvent<HTMLAnchorElement>, tile.href) : undefined}
-              className="group flex flex-col gap-3 p-5 rounded-xl transition-all duration-200"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
-              onMouseEnter={(e) => { const el = e.currentTarget; el.style.background = 'rgba(200,92,8,0.12)'; el.style.borderColor = 'rgba(200,92,8,0.35)' }}
-              onMouseLeave={(e) => { const el = e.currentTarget; el.style.background = 'rgba(255,255,255,0.05)'; el.style.borderColor = 'rgba(255,255,255,0.08)' }}
-            >
-              <div className="text-white/38 group-hover:text-[#C85C08] transition-colors duration-200">
-                {tile.icon}
-              </div>
-              <div>
-                <div className="text-[0.6rem] uppercase tracking-[0.18em] font-black text-white/25 mb-0.5">{tile.label}</div>
-                <div className="text-[0.84rem] font-semibold text-white/72 leading-snug">{tile.value}</div>
-              </div>
-            </a>
-          ))}
+          {contactTiles.map((tile) => {
+            const className = 'group flex flex-col gap-3 p-5 rounded-xl transition-colors duration-200 bg-white/[0.05] border border-white/[0.08] hover:bg-accent hover:bg-accent-dark transition-colors/[0.12] hover:border-[#A9CFCF]/35'
+            const content = (
+              <>
+                <div className="text-white/38 group-hover:text-accent-light transition-colors duration-200">
+                  {tile.icon}
+                </div>
+                <div>
+                  <div className="text-[0.6rem] uppercase tracking-[0.18em] font-black text-white/25 mb-0.5">{tile.label}</div>
+                  <div className="text-[0.84rem] font-semibold text-white/72 leading-snug">{tile.value}</div>
+                </div>
+              </>
+            )
+            return tile.href.startsWith('/') ? (
+              <Link key={tile.label} to={tile.href} className={className}>{content}</Link>
+            ) : (
+              <a key={tile.label} href={tile.href} className={className}>{content}</a>
+            )
+          })}
         </motion.div>
 
         {/* CTAs */}
@@ -160,11 +157,10 @@ export default function CtaBanner() {
           transition={{ delay: 0.55, duration: 0.55 }}
           className="flex flex-col sm:flex-row justify-center gap-3"
         >
-          <motion.a
-            href="#kontakt"
-            onClick={(e) => scrollTo(e, '#kontakt')}
-            className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#C85C08] text-white font-bold rounded-lg text-[0.95rem]"
-            whileHover={reduce ? {} : { scale: 1.04, boxShadow: '0 16px 48px rgba(200,92,8,0.42)' }}
+          <MotionLink
+            to="/kontakt"
+            className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-accent hover:bg-accent-dark transition-colors text-white font-bold rounded-lg text-[0.95rem]"
+            whileHover={reduce ? {} : { scale: 1.04, boxShadow: '0 16px 48px rgba(75,131,133,0.42)' }}
             whileTap={{ scale: 0.97 }}
             transition={springBouncy}
           >
@@ -172,7 +168,7 @@ export default function CtaBanner() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </motion.a>
+          </MotionLink>
           <motion.a
             href="tel:+41555259808"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/15 text-white/72 font-semibold rounded-lg text-[0.95rem]"

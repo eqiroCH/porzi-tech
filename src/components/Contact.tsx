@@ -153,7 +153,7 @@ export default function Contact() {
             transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-2xl overflow-hidden border border-[var(--color-border)] bg-white"
             style={{ minHeight: 320 }}
-            whileHover={reduce ? {} : { borderColor: 'rgba(201,106,15,0.3)', transition: springSnappy }}
+            whileHover={reduce ? {} : { borderColor: 'rgba(75,131,133,0.3)', transition: springSnappy }}
           >
             <span aria-hidden className="absolute top-4 left-4 z-10 w-5 h-5 border-l border-t border-accent/30 rounded-tl-sm pointer-events-none"/>
             <span aria-hidden className="absolute top-4 right-4 z-10 w-5 h-5 border-r border-t border-accent/30 rounded-tr-sm pointer-events-none"/>

@@ -15,22 +15,27 @@ interface DetailSectionProps {
   items: DetailItem[]
   tags?: string[]
   variant?: 'editorial' | 'dark' | 'bold'
+  seamlessTop?: boolean
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const
 const CLIP_EASE = [0.16, 1, 0.3, 1] as const
 
 /* ── VARIANT: DARK ─────────────────────────────────────────── */
-function DarkVariant({ id, tag, sectionNumber, title, lead, items, tags = [] }: DetailSectionProps) {
+function DarkVariant({ id, tag, sectionNumber, title, lead, items, tags = [], seamlessTop = false }: DetailSectionProps) {
   return (
-    <section id={id} className="relative overflow-hidden" style={{ background: '#09111E' }}>
+    <section id={id} className="relative overflow-hidden" style={{ background: '#0B1718' }}>
       {/* Arch top transition from previous section */}
-      <div className="relative h-20 overflow-hidden" style={{ color: '#09111E' }}>
-        <svg viewBox="0 0 1440 80" fill="currentColor" preserveAspectRatio="none" className="absolute inset-0 w-full h-full"
-          style={{ color: 'var(--color-surface)' }}>
-          <path d="M0,0 L1440,0 L1440,80 Q720,0 0,80 Z" />
-        </svg>
-      </div>
+      {seamlessTop ? (
+        <div className="absolute inset-x-12 top-0 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
+      ) : (
+        <div className="relative h-20 overflow-hidden" style={{ color: '#0B1718' }}>
+          <svg viewBox="0 0 1440 80" fill="currentColor" preserveAspectRatio="none" className="absolute inset-0 w-full h-full"
+            style={{ color: 'var(--color-surface)' }}>
+            <path d="M0,0 L1440,0 L1440,80 Q720,0 0,80 Z" />
+          </svg>
+        </div>
+      )}
 
       {/* Grid texture */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -52,8 +57,8 @@ function DarkVariant({ id, tag, sectionNumber, title, lead, items, tags = [] }: 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}>
-          <span className="block w-4 h-[2px] bg-[#C85C08]" />
-          <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-[#C85C08]">{tag}</span>
+          <span className="block w-4 h-[2px] bg-accent-light" />
+          <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-accent-light">{tag}</span>
         </motion.div>
 
         {/* Headline + lead */}
@@ -98,7 +103,7 @@ function DarkVariant({ id, tag, sectionNumber, title, lead, items, tags = [] }: 
               className="rounded-2xl p-6 flex flex-col gap-4"
               style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div className="text-[1.6rem] font-black leading-none select-none"
-                style={{ color: 'rgba(200,92,8,0.4)', letterSpacing: '-0.04em' }}>
+                style={{ color: 'rgba(75,131,133,0.4)', letterSpacing: '-0.04em' }}>
                 {String(i + 1).padStart(2, '0')}
               </div>
               <div className="h-px" style={{ background: 'rgba(255,255,255,0.08)' }} />
@@ -129,7 +134,7 @@ function BoldVariant({ id, tag, sectionNumber, title, lead, items, tags = [] }: 
 
       {/* Giant watermark number — bleed off screen left */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 font-black select-none pointer-events-none leading-none"
-        style={{ fontSize: 'clamp(14rem, 32vw, 36rem)', color: 'rgba(200,92,8,0.055)', letterSpacing: '-0.06em' }}
+        style={{ fontSize: 'clamp(14rem, 32vw, 36rem)', color: 'rgba(75,131,133,0.055)', letterSpacing: '-0.06em' }}
         aria-hidden>
         {sectionNumber}
       </div>
@@ -185,7 +190,7 @@ function BoldVariant({ id, tag, sectionNumber, title, lead, items, tags = [] }: 
               className="rounded-2xl p-7 flex flex-col gap-4"
               style={{ background: 'white', border: '1px solid var(--color-border)' }}>
               <div className="text-[2.2rem] font-black leading-none select-none"
-                style={{ color: 'rgba(200,92,8,0.12)', letterSpacing: '-0.04em' }}>
+                style={{ color: 'rgba(75,131,133,0.12)', letterSpacing: '-0.04em' }}>
                 {String(i + 1).padStart(2, '0')}
               </div>
               <div className="h-px" style={{ background: 'var(--color-border)' }} />
@@ -226,7 +231,7 @@ function EditorialVariant({ id, tag, sectionNumber, title, lead, items, tags = [
                 <span className="text-[0.7rem] font-black uppercase tracking-[0.22em] text-[var(--color-accent)]">{tag}</span>
               </div>
               <div className="font-black leading-none select-none mb-6"
-                style={{ fontSize: 'clamp(5rem,10vw,10rem)', color: 'rgba(200,92,8,0.12)', letterSpacing: '-0.06em' }}
+                style={{ fontSize: 'clamp(5rem,10vw,10rem)', color: 'rgba(75,131,133,0.12)', letterSpacing: '-0.06em' }}
                 aria-hidden>{sectionNumber}</div>
               <div className="overflow-hidden mb-5">
                 <motion.h2
@@ -280,7 +285,7 @@ function EditorialVariant({ id, tag, sectionNumber, title, lead, items, tags = [
                   >
                     <span
                       className="text-[0.95rem] font-black shrink-0 leading-none"
-                      style={{ color: isOpen ? 'var(--color-accent)' : 'rgba(200,92,8,0.28)', letterSpacing: '-0.02em', minWidth: '2.2rem' }}
+                      style={{ color: isOpen ? 'var(--color-accent)' : 'rgba(75,131,133,0.28)', letterSpacing: '-0.02em', minWidth: '2.2rem' }}
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>

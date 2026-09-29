@@ -38,7 +38,7 @@ export default function About() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="mb-10"
             >
-              <div aria-hidden className="font-black leading-none mb-4 select-none" style={{ fontSize: '5rem', color: 'rgba(200,92,8,0.15)' }}>"</div>
+              <div aria-hidden className="font-black leading-none mb-4 select-none" style={{ fontSize: '5rem', color: 'rgba(75,131,133,0.15)' }}>"</div>
               <p
                 className="font-semibold leading-[1.45] mb-8"
                 style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.55rem)', color: 'var(--color-text)' }}
@@ -50,8 +50,8 @@ export default function About() {
                 <div
                   className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center"
                   style={{
-                    background: 'rgba(200,92,8,0.08)',
-                    border: '1px solid rgba(200,92,8,0.2)',
+                    background: 'rgba(75,131,133,0.08)',
+                    border: '1px solid rgba(75,131,133,0.2)',
                   }}
                 >
                   <span className="font-black text-lg tracking-tight" style={{ color: 'var(--color-accent)' }}>FP</span>
@@ -127,7 +127,7 @@ export default function About() {
                     style={{
                       borderColor: item.active ? 'var(--color-accent)' : 'var(--color-border)',
                       background: item.active ? 'var(--color-accent)' : 'white',
-                      boxShadow: item.active ? '0 0 0 4px rgba(200,92,8,0.15)' : 'none',
+                      boxShadow: item.active ? '0 0 0 4px rgba(75,131,133,0.15)' : 'none',
                     }}
                     whileHover={reduce ? {} : { scale: 1.25 }}
                     transition={springSnappy}
@@ -136,7 +136,7 @@ export default function About() {
                     <motion.div
                       aria-hidden
                       className="absolute -left-[2.4rem] top-[0.75px] w-3.5 h-3.5 rounded-full"
-                      style={{ background: 'rgba(200,92,8,0.15)' }}
+                      style={{ background: 'rgba(75,131,133,0.15)' }}
                       animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
                       transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
                     />
