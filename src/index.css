@@ -1,79 +1,261 @@
 @import "tailwindcss";
 
+/* ── Fonts (self-hosted, no request to Google) ─────────────── */
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('/fonts/libre-franklin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/source-serif-4.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-italic.woff2') format('woff2');
+}
+
+/* ── Tokens ───────────────────────────────────────────────────
+   One ground, one ink, one accent: the teal of the Porzi Tech mark.
+   The hexagon of the mark is the only shape with character. */
 @theme {
-  /* Cool neutral backgrounds, tinted towards the brand teal */
-  --color-bg: #F4F6F5;
-  --color-surface: #E9EFEE;
-  --color-surface-strong: #DDE6E5;
-  --color-border: #D3DEDD;
+  --color-paper: #F4F6F5;
+  --color-paper-2: #E4ECEB;
+  --color-ink: #0F1D1E;
+  --color-ink-soft: #455958;
 
-  /* Text */
-  --color-text: #0F1D1E;
-  --color-text-muted: #526564;
-
-  /* Brand teal from the logo (#4B8385); accent is darkened for WCAG contrast with white text */
-  --color-brand: #4B8385;
+  /* Brand teal: Pantone 7474 U, RGB 71 136 143 (logo sheet). Accent is darker for text contrast. */
+  --color-brand: #47888F;
   --color-accent: #3F7778;
-  --color-accent-light: #86B8B8;
-  --color-accent-dark: #2B5657;
+  --color-accent-strong: #2B5657;
+  --color-accent-pale: #86B8B8;
 
-  /* Secondary label colour */
-  --color-tech: #35595A;
-  --color-tech-soft: #D6E6E6;
+  --color-night: #0B1718;
+  --color-night-2: #15292A;
+  --color-on-night: #E8F0EF;
+  --color-on-night-soft: #A3BFBE;
 
-  /* Dark sections — deep green-black from the logo lines */
-  --color-dark: #0B1718;
-  --color-dark-2: #122324;
-  --color-dark-surface: #1A3031;
+  /* Folder tints, darkest to lightest */
+  --color-tint-1: #1C3536;
+  --color-tint-2: #2B5657;
+  --color-tint-3: #3F7778;
+  --color-tint-4: #86B8B8;
+  --color-tint-5: #C9DEDD;
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+  --font-text: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  /* Five sizes, no more */
+  --text-display: clamp(3.5rem, 1.4rem + 9.6vw, 10rem);
+  --text-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --text-lead: clamp(1.375rem, 1.05rem + 1.25vw, 2.25rem);
+  --text-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+}
+
+:root {
+  --margin: clamp(1.25rem, 2.2vw, 2rem);
+  --gutter: clamp(1rem, 2vw, 2rem);
+  --section: clamp(6rem, 4rem + 8vw, 12rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+
+  /* The Porzi Tech hexagon: flat top, points left and right, as in the mark */
+  --hex: polygon(24% 0, 76% 0, 100% 50%, 76% 100%, 24% 100%, 0 50%);
+  /* The upper half of the hexagon: folder tabs */
+  --tab: polygon(14% 0, 86% 0, 100% 100%, 0 100%);
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-  background: var(--color-bg);
+  background: var(--color-paper);
+  scroll-padding-top: 24px;
 }
 
 body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-text);
+  font-size: var(--text-body);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--color-bg);
-  color: var(--color-text);
+  text-rendering: optimizeLegibility;
 }
 
-/* ── Marquee ───────────────────────────────── */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-wrap: balance;
 }
 
-.marquee-track {
-  animation: marquee 36s linear infinite;
-  will-change: transform;
-}
-
-.marquee-wrap:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-/* ── Scrollbar ─────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--color-surface); }
-::-webkit-scrollbar-thumb { background: #B6C9C8; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #8BA8A7; }
+p { text-wrap: pretty; }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent) 22%, transparent);
-  color: inherit;
+  background: var(--color-accent-pale);
+  color: var(--color-ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 3px solid var(--color-accent);
   outline-offset: 3px;
+}
+.on-night :focus-visible { outline-color: var(--color-accent-pale); }
+
+/* ── Frame ─────────────────────────────────────────────────── */
+.frame {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--margin);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+/* ── The hexagon ───────────────────────────────────────────── */
+.hex {
+  clip-path: var(--hex);
+  aspect-ratio: 7 / 6;
+  overflow: hidden;
+}
+.hex img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Bullet at text size */
+.hex-dot {
+  display: inline-block;
+  width: 0.7em;
+  aspect-ratio: 7 / 6;
+  clip-path: var(--hex);
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ── Button: the hexagon stretched to a bar ─────────────────── */
+.btn {
+  --btn-bg: var(--color-accent);
+  --btn-bg-hover: var(--color-accent-strong);
+  --btn-ink: #fff;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 3.25rem;
+  padding: 0.8rem 2.1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-body);
+  letter-spacing: -0.01em;
+  color: var(--btn-ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--t-press) var(--ease-out), color var(--t-hover) ease;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-bg);
+  clip-path: polygon(0.9rem 0, calc(100% - 0.9rem) 0, 100% 50%, calc(100% - 0.9rem) 100%, 0.9rem 100%, 0 50%);
+  transition: background-color var(--t-hover) ease;
+}
+.btn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover::before { background: var(--btn-bg-hover); }
+}
+.btn--light {
+  --btn-bg: var(--color-paper);
+  --btn-bg-hover: #fff;
+  --btn-ink: var(--color-ink);
+}
+.btn--ink {
+  --btn-bg: var(--color-ink);
+  --btn-bg-hover: var(--color-night-2);
+  --btn-ink: #fff;
+}
+
+/* ── Links ─────────────────────────────────────────────────── */
+.link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 0.07em;
+  transition: text-decoration-color var(--t-hover) ease, color var(--t-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .link:hover { text-decoration-color: currentColor; }
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Reveal (once) ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-expo);
+    transition-delay: calc(var(--d, 0) * 80ms);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Pictures open from the bottom edge inside their shape */
+  .js [data-shutter] {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1100ms var(--ease-in-out);
+    transition-delay: calc(var(--d, 0) * 80ms);
+  }
+  .js [data-shutter] img {
+    transform: scale(1.12);
+    transition: transform 1500ms var(--ease-soft);
+  }
+  .js [data-shutter].is-in { clip-path: inset(0); }
+  .js [data-shutter].is-in img { transform: none; }
+
+  /* One moving picture: a slow drift */
+  @keyframes drift {
+    from { transform: scale(1.06) translate3d(-1.5%, 0, 0); }
+    to   { transform: scale(1.06) translate3d(1.5%, -1%, 0); }
+  }
+  .drift { animation: drift 18s var(--ease-soft) infinite alternate; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee-track { animation: none; }
 }

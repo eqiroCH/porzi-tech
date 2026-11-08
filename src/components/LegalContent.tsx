@@ -2,12 +2,9 @@ import type { ReactNode } from 'react'
 
 export function LegalContent({ children }: { children: ReactNode }) {
   return (
-    <section className="relative py-[clamp(56px,8vw,96px)]" style={{ background: 'var(--color-bg)' }}>
-      <div
-        className="max-w-[820px] mx-auto px-6 md:px-10 space-y-10 text-[0.95rem] leading-relaxed"
-        style={{ color: 'var(--color-text-muted)' }}
-      >
-        {children}
+    <section className="py-[clamp(4rem,3rem+5vw,8rem)]">
+      <div className="frame">
+        <div className="max-w-[68ch] space-y-12">{children}</div>
       </div>
     </section>
   )
@@ -15,9 +12,9 @@ export function LegalContent({ children }: { children: ReactNode }) {
 
 export function LegalBlock({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div>
-      <h2 className="font-bold text-[1.1rem] tracking-[-0.01em] text-[var(--color-text)] mb-3">{title}</h2>
-      {children}
+    <div className="border-t-2 border-ink pt-5">
+      <h2 className="mb-4 text-[clamp(1.25rem,1.1rem+0.6vw,1.6rem)] leading-[1.15] tracking-[-0.02em]">{title}</h2>
+      <div className="space-y-4 text-ink-soft">{children}</div>
     </div>
   )
 }
@@ -25,11 +22,7 @@ export function LegalBlock({ title, children }: { title: string; children: React
 export function LegalLink({ href, children }: { href: string; children: ReactNode }) {
   const external = href.startsWith('http')
   return (
-    <a
-      href={href}
-      className="text-[var(--color-accent)] hover:underline"
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-    >
+    <a href={href} className="link text-accent-strong" {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
       {children}
     </a>
   )

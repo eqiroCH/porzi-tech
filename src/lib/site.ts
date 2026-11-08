@@ -1,97 +1,74 @@
-export interface ServiceItem {
-  title: string
-  description: string
+/** Language-neutral facts: pictures, contact data, routes. All wording lives in content.ts. */
+
+export interface Picture {
+  src: string
+  width: number
+  height: number
+  /** CSS object-position, to crop the picture into the hexagon */
+  focus?: string
 }
 
-export interface ServiceArea {
-  slug: string
-  path: string
-  navLabel: string
-  tag: string
-  sectionNumber: string
-  title: string
-  detailTitle: string
-  lead: string
-  intro: string
-  metaTitle: string
-  metaDescription: string
-  tags: string[]
-  variant: 'editorial' | 'dark' | 'bold'
-  items: ServiceItem[]
+export const pictures = {
+  simaticS5: { src: '/media/simatic-s5.webp', width: 1400, height: 1621, focus: '50% 30%' },
+  pg730: { src: '/media/s5-programmiergeraet.webp', width: 1400, height: 1050, focus: '45% 50%' },
+  s71500: { src: '/media/simatic-s7-1500.webp', width: 1400, height: 1050, focus: '30% 55%' },
+  klemmen: { src: '/media/reihenklemmen.webp', width: 1400, height: 1050, focus: '55% 35%' },
+  tig: { src: '/media/wig-schweissen.webp', width: 1400, height: 1050, focus: '45% 55%' },
+  tigWorkshop: { src: '/media/wig-schweissen-werkstatt.webp', width: 1400, height: 930, focus: '50% 60%' },
+  weldSeam: { src: '/media/schweissnaht-rohr.webp', width: 960, height: 500, focus: '50% 50%' },
+  seedamm: { src: '/media/pfaeffikon-seedamm.webp', width: 1400, height: 916, focus: '45% 50%' },
+} satisfies Record<string, Picture>
+
+export type PictureKey = keyof typeof pictures
+
+/**
+ * Stand-in pictures from Wikimedia Commons, until Porzi Tech's own photos arrive.
+ * Listed in the Impressum under "Bildnachweis".
+ */
+export const pictureCredits = [
+  { what: 'Simatic S5-100U', who: 'Alxcor', licence: 'CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Simatic_S5-100U_CPU103.jpg' },
+  { what: 'Simatic S5 PG 730', who: 'Palatinatian', licence: 'CC BY 3.0', href: 'https://commons.wikimedia.org/wiki/File:Siemens_Simatic_S5_PG_730.jpg' },
+  { what: 'Simatic S7-1500', who: 'Palatinatian', licence: 'CC BY 3.0', href: 'https://commons.wikimedia.org/wiki/File:S71500.JPG' },
+  { what: 'Reihenklemmen', who: 'tony_duell', licence: 'CC BY 2.0', href: 'https://commons.wikimedia.org/wiki/File:Cabinet_Terminal_Block.jpg' },
+  { what: 'TIG-Schweissen', who: 'Mak04', licence: 'Public Domain', href: 'https://commons.wikimedia.org/wiki/File:TIG_welding.jpg' },
+  { what: 'TIG-Schweissen, Werkstatt', who: 'U.S. Navy', licence: 'Public Domain', href: 'https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg' },
+  { what: 'Schweissnaht 316L', who: '4X4 Blazer 1776', licence: 'CC BY 2.0', href: 'https://commons.wikimedia.org/wiki/File:Orbital_Welding_316L_Stainless_Steel.jpg' },
+  { what: 'Pfäffikon SZ, Luegete', who: 'Roland zh', licence: 'CC BY-SA 3.0', href: 'https://commons.wikimedia.org/wiki/File:Pf%C3%A4ffikon_(SZ)_-_Luegete_-_Seedamm-_Rapperswil_2010-10-21_18-18-42.JPG' },
+]
+
+export const contact = {
+  company: 'Porzi Tech GmbH',
+  street: 'Churerstrasse 160A',
+  city: '8808 Pfäffikon SZ',
+  phone: '055 525 98 08',
+  phoneHref: 'tel:+41555259808',
+  email: 'info@porzi-tech.ch',
+  emailHref: 'mailto:info@porzi-tech.ch',
+  uid: 'CHE-137.297.616',
+  register: 'HR Schwyz',
+  mapsUrl:
+    'https://www.google.com/maps/place/Porzi+Tech+Gmbh/@47.2014516,8.7982958,17z/data=!3m1!4b1!4m6!3m5!1s0x479ab7c48f4ffbfb:0x6ed4b78955a9cc3a!8m2!3d47.2014516!4d8.7982958!16s%2Fg%2F11ll7c284c',
+  mapsEmbed: 'https://maps.google.com/maps?q=Porzi+Tech+GmbH,+Churerstrasse+160A,+8808+Pf%C3%A4ffikon+SZ&z=16&output=embed',
 }
 
-export const serviceAreas: ServiceArea[] = [
-  {
-    slug: 'automation',
-    path: '/automation',
-    navLabel: 'Automation',
-    tag: 'SPS & Steuerungsbau',
-    sectionNumber: '01',
-    title: 'SPS-Programmierung & Steuerungsbau',
-    detailTitle: 'Von der Planung bis zur laufenden Anlage.',
-    lead: 'Massgeschneiderte Steuerungslösungen für Produktionsanlagen — von der Planung über die Programmierung bis zur Inbetriebnahme.',
-    intro: 'Von der Elektroplanung bis zur laufenden Anlage: Steuerungslösungen auf Siemens-Plattformen, normgerecht dokumentiert und vor Ort in Betrieb genommen.',
-    metaTitle: 'SPS-Programmierung & Steuerungsbau | Porzi Tech GmbH',
-    metaDescription: 'SPS-Programmierung (Siemens S7/S5), Elektroschema, Steuerungsschrank-Fertigung und Inbetriebnahme vor Ort – Porzi Tech GmbH, Pfäffikon SZ.',
-    tags: ['SPS-Programmierung', 'Elektroschema', 'Steuerungsbau', 'Inbetriebnahme'],
-    variant: 'editorial',
-    items: [
-      { title: 'Elektroschema-Erstellung', description: 'Professionelle Dokumentation nach aktuellen EN-Normen — klar, nachvollziehbar und revisionsfähig.' },
-      { title: 'SPS-Programmierung', description: 'Zuverlässige Software auf Siemens S7/S5-Plattformen — stabil, wartbar und praxisnah programmiert.' },
-      { title: 'Steuerungsschrank-Fertigung', description: 'Normgerecht verdrahtet, geprüft und vollständig dokumentiert — bereit für den Einsatz vor Ort.' },
-      { title: 'Inbetriebnahme vor Ort', description: 'Inbetriebnahme, Optimierung und Schulung direkt im Betrieb — damit Ihre Anlage läuft.' },
-    ],
-  },
-  {
-    slug: 'anlagenservice',
-    path: '/anlagenservice',
-    navLabel: 'Anlagenservice',
-    tag: 'Anlagenservice & Wartung',
-    sectionNumber: '02',
-    title: 'Revisionen, Reparaturen & Umbauten',
-    detailTitle: 'Damit Ihre Anlage läuft.',
-    lead: 'Schneller, kompetenter Anlagenservice mit minimalen Ausfallzeiten — für Produktionsbetriebe, die auf Verlässlichkeit angewiesen sind.',
-    intro: 'Wenn eine Anlage steht, zählt jede Stunde. Wir sorgen mit Revisionen, schneller Störungsbehebung und sauberen Umbauten für hohe Verfügbarkeit.',
-    metaTitle: 'Anlagenservice, Revisionen & Umbauten | Porzi Tech GmbH',
-    metaDescription: 'Revisionen, Störungsreparaturen, Umbauten und Montagen von Produktionsanlagen in der Zentralschweiz – Porzi Tech GmbH, Pfäffikon SZ.',
-    tags: ['Revisionen', 'Reparaturen', 'Umbauten', 'Montagen'],
-    variant: 'dark',
-    items: [
-      { title: 'Revisionen', description: 'Regelmässige Überprüfung und Wartung für eine lange Lebensdauer und hohe Verfügbarkeit.' },
-      { title: 'Störungsreparaturen', description: 'Schnelle Fehlerbehebung und Instandsetzung — kurze Reaktionszeiten, direkte Kommunikation.' },
-      { title: 'Umbauten & Modifikationen', description: 'Anpassung bestehender Anlagen an neue Anforderungen, Prozesse oder Normen.' },
-      { title: 'Montagen', description: 'Fachgerechte Montage und Installation von Anlagenkomponenten und Steuerungseinheiten.' },
-    ],
-  },
-  {
-    slug: 'fahrzeugtechnik',
-    path: '/fahrzeugtechnik',
-    navLabel: 'Fahrzeugtechnik',
-    tag: 'Fahrzeugservice',
-    sectionNumber: '03',
-    title: 'Fahrzeugdiagnose & Autoservice',
-    detailTitle: 'Diagnose statt Rätselraten.',
-    lead: 'Präziser Fahrzeugservice mit transparenter Beratung und ehrlichen Kosten — für Privatpersonen, die saubere Arbeit schätzen.',
-    intro: 'Diagnose, Reparatur und Service für Personenwagen aller gängigen Marken — mit klarer Kommunikation, was wirklich nötig ist.',
-    metaTitle: 'Fahrzeugdiagnose & Autoservice | Porzi Tech GmbH',
-    metaDescription: 'OBD-II-Diagnose, Reparaturen, Service-Inspektionen und ehrliche Beratung für Personenwagen – Porzi Tech GmbH, Pfäffikon SZ.',
-    tags: ['OBD-Diagnose', 'Reparaturen', 'Inspektionen', 'Beratung'],
-    variant: 'bold',
-    items: [
-      { title: 'Professionelle Diagnose', description: 'OBD-II-Diagnose aller gängigen Fahrzeugmarken — präzise Fehleranalyse ohne Umwege.' },
-      { title: 'Reparaturen', description: 'Zuverlässige Reparatur von Fahrzeugelektrik, Antrieb und allgemeiner Fahrzeugtechnik.' },
-      { title: 'Service-Inspektionen', description: 'Regelmässige Wartung und Inspektion für die Sicherheit und Langlebigkeit Ihres Fahrzeugs.' },
-      { title: 'Ehrliche Beratung', description: 'Transparent, direkt und ohne versteckte Kosten — wir erklären, was wirklich notwendig ist.' },
-    ],
-  },
+/** Office hours in minutes after midnight, Monday to Friday. */
+export const officeHours = [
+  { from: 8 * 60, to: 12 * 60 },
+  { from: 13 * 60, to: 17 * 60 + 30 },
 ]
 
-export const mainNav = [
-  ...serviceAreas.map((s) => ({ to: s.path, label: s.navLabel })),
-  { to: '/ueber-uns', label: 'Über uns' },
-]
+/**
+ * AGB: set to the PDF path (e.g. '/agb-porzi-tech.pdf', placed in /public) once the client sends it.
+ * The footer shows the AGB link only when this is set.
+ */
+export const agbUrl: string | null = null
 
-export const legalNav = [
-  { to: '/impressum', label: 'Impressum' },
-  { to: '/datenschutz', label: 'Datenschutz' },
-]
+export type ServiceSlug = 'automation' | 'anlagenservice' | 'schweisstechnik'
+
+export const servicePaths: Record<ServiceSlug, string> = {
+  automation: '/automation',
+  anlagenservice: '/anlagenservice',
+  schweisstechnik: '/schweisstechnik',
+}
+
+export const serviceOrder: ServiceSlug[] = ['automation', 'anlagenservice', 'schweisstechnik']

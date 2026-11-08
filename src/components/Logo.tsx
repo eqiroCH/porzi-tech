@@ -1,84 +1,73 @@
 import { useId } from 'react'
+import {
+  BARS,
+  BAR_STROKE,
+  BRAND,
+  BRAND_ON_DARK,
+  GRADIENT_DARK,
+  GRADIENT_LIGHT,
+  HEX,
+  HEX_STROKE,
+  PT,
+  WORDMARK,
+} from './logoPaths'
 
 type Tone = 'light' | 'dark'
 
-interface LogoMarkProps {
+interface LogoProps {
+  /** The ground the logo sits on */
   tone?: Tone
+  /** inline: mark left, name right (header). stacked: the logo as drawn, name under the mark. mark: no name. */
+  layout?: 'inline' | 'stacked' | 'mark'
   className?: string
+  title?: string
 }
 
-/** Vector recreation of the Porzi Tech hexagon mark. `tone` = background it sits on. */
-export function LogoMark({ tone = 'light', className }: LogoMarkProps) {
+/**
+ * The Porzi Tech GmbH logo, drawn from the client's files.
+ * On dark grounds the outer ends of the bars fade into the ground instead of turning black.
+ */
+export default function Logo({ tone = 'light', layout = 'inline', className, title }: LogoProps) {
   const id = useId().replace(/:/g, '')
-  const onDark = tone === 'dark'
-  const teal = onDark ? '#6FA5A6' : '#4B8385'
-  const letters = onDark ? '#9CC6C6' : '#4B8385'
-  const lineOuter = onDark ? 'rgba(111,165,166,0.12)' : '#203232'
-  const highlight = onDark ? '#E4F1F1' : '#FFFFFF'
+  const stops = tone === 'dark' ? GRADIENT_DARK : GRADIENT_LIGHT
+  const ink = tone === 'dark' ? BRAND_ON_DARK : BRAND
+
+  const mark = (
+    <>
+      <g fill="none" stroke={`url(#${id})`}>
+        <path d={HEX} strokeWidth={HEX_STROKE} strokeMiterlimit={10} />
+        <path d={BARS} strokeWidth={BAR_STROKE} />
+      </g>
+      <path d={PT} fill={ink} />
+    </>
+  )
+
+  // viewBoxes in the PDF's point space
+  const box =
+    layout === 'stacked' ? '34 26 172.6 104' : layout === 'mark' ? '49 26 142.6 73' : '49 26 391 73'
 
   return (
-    <svg viewBox="44 0 600 290" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+    <svg
+      viewBox={box}
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      role={title ? 'img' : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+    >
       <defs>
-        <linearGradient id={`${id}-hex`} gradientUnits="userSpaceOnUse" x1="186" y1="0" x2="501" y2="0">
-          <stop offset="0.25" stopColor={teal} />
-          <stop offset="0.5" stopColor={highlight} />
-          <stop offset="0.75" stopColor={teal} />
-        </linearGradient>
-        <linearGradient id={`${id}-left`} gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="215" y2="0">
-          <stop offset="0" stopColor={lineOuter} />
-          <stop offset="1" stopColor={teal} />
-        </linearGradient>
-        <linearGradient id={`${id}-right`} gradientUnits="userSpaceOnUse" x1="634" y1="0" x2="472" y2="0">
-          <stop offset="0" stopColor={lineOuter} />
-          <stop offset="1" stopColor={teal} />
+        <linearGradient id={id} gradientUnits="userSpaceOnUse" x1="50.88" y1="0" x2="189.72" y2="0">
+          {stops.map(([o, c]) => (
+            <stop key={o} offset={o} stopColor={c} />
+          ))}
         </linearGradient>
       </defs>
-
-      <path d="M263 8 H424 L501 143 L424 278 H263 L186 143 Z" stroke={`url(#${id}-hex)`} strokeWidth="17" strokeLinejoin="miter" />
-
-      <g stroke={`url(#${id}-left)`} strokeWidth="16">
-        <path d="M110 100 H215" />
-        <path d="M54 143 H190" />
-        <path d="M110 188 H215" />
-      </g>
-      <g stroke={`url(#${id}-right)`} strokeWidth="16">
-        <path d="M472 100 H577" />
-        <path d="M497 143 H634" />
-        <path d="M472 188 H577" />
-      </g>
-
-      <g stroke={letters} strokeWidth="14">
-        <path d="M276 186 V121 A26 22 0 1 1 302 143 H276" />
-        <path d="M341 100 H418 M380 100 V186" />
-      </g>
+      {mark}
+      {layout === 'stacked' && <path d={WORDMARK} fill={ink} />}
+      {layout === 'inline' && (
+        // Name to the right of the mark, its cap height about a third of the mark
+        <path d={WORDMARK} fill={ink} transform="translate(204 62.52) scale(1.42) translate(-38.03 -118.11)" />
+      )}
     </svg>
-  )
-}
-
-interface LogoProps {
-  tone?: Tone
-  className?: string
-}
-
-export default function Logo({ tone = 'light', className = '' }: LogoProps) {
-  const onDark = tone === 'dark'
-  return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <LogoMark tone={tone} className="h-[30px] w-auto shrink-0" />
-      <span className="flex flex-col leading-none">
-        <span
-          className="text-[1.02rem] font-semibold tracking-[0.01em] transition-colors duration-300"
-          style={{ color: onDark ? 'rgba(255,255,255,0.94)' : 'var(--color-accent)' }}
-        >
-          Porzi Tech
-        </span>
-        <span
-          className="mt-[3px] text-[0.56rem] font-semibold uppercase tracking-[0.28em] transition-colors duration-300"
-          style={{ color: onDark ? 'rgba(156,198,198,0.7)' : 'var(--color-text-muted)' }}
-        >
-          GmbH
-        </span>
-      </span>
-    </span>
   )
 }
