@@ -43,9 +43,8 @@ export default function Datenschutz() {
           </LegalBlock>
           <LegalBlock title="4. Google Maps">
             <p>
-              The contact page offers a map from Google Maps. The map only loads after you click “Load map”. Only then
-              does your browser connect to Google’s servers, and personal data (e.g. your IP address) may be transmitted
-              to Google. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. For more
+              The contact page shows an embedded map from Google Maps. When you open the contact page, your browser
+              connects to Google’s servers, and personal data (e.g. your IP address) may be transmitted to Google. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. For more
               information, see <LegalLink href={googlePolicy}>Google’s privacy policy</LegalLink>.
             </p>
           </LegalBlock>
@@ -93,10 +92,9 @@ export default function Datenschutz() {
         </LegalBlock>
         <LegalBlock title="4. Google Maps">
           <p>
-            Auf der Kontaktseite kann eine Karte von Google Maps angezeigt werden. Die Karte wird
-            erst geladen, wenn Sie auf «Karte laden» klicken. Erst dann stellt Ihr Browser eine
-            Verbindung zu Servern von Google her, und es können personenbezogene Daten (z. B.
-            IP-Adresse) an Google übermittelt werden. Anbieter ist Google Ireland Limited, Gordon
+            Auf der Kontaktseite ist eine Karte von Google Maps eingebunden. Beim Aufruf der
+            Kontaktseite stellt Ihr Browser eine Verbindung zu Servern von Google her, und es können
+            personenbezogene Daten (z. B. IP-Adresse) an Google übermittelt werden. Anbieter ist Google Ireland Limited, Gordon
             House, Barrow Street, Dublin 4, Irland. Weitere Informationen finden Sie in der{' '}
             <LegalLink href={googlePolicy}>Datenschutzerklärung von Google</LegalLink>.
           </p>

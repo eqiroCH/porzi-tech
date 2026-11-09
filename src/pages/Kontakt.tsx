@@ -1,18 +1,15 @@
-import { useState } from 'react'
 import { useLang } from '../lib/i18n'
 import { contact } from '../lib/site'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { ContactActions, HexPicture, Overline } from '../components/ui'
+import { Arrow, ContactActions, Overline } from '../components/ui'
 
-/** Google Maps loads only after a click, so no data goes to Google before the visitor asks for it. */
+/** Google Maps, shown directly. The link below opens the place in Google Maps. */
 function MapPanel() {
   const { c } = useLang()
   const k = c.contactPage
-  const [load, setLoad] = useState(false)
-
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper-2 sm:aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-[420px]">
-      {load ? (
+    <div>
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper-2 sm:aspect-[16/9] lg:aspect-auto lg:h-[460px]">
         <iframe
           src={contact.mapsEmbed}
           title={k.mapFrameTitle}
@@ -21,22 +18,11 @@ function MapPanel() {
           referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen
         />
-      ) : (
-        <div className="absolute inset-0 flex flex-col items-start justify-end gap-5 p-6 md:p-8">
-          <div className="absolute right-[-8%] top-[-12%] w-[58%] opacity-90" aria-hidden>
-            <HexPicture pic="seedamm" />
-          </div>
-          <p className="relative max-w-[36ch] text-small text-ink-soft">{k.mapNote}</p>
-          <div className="relative flex flex-wrap items-center gap-x-6 gap-y-3">
-            <button type="button" className="btn" onClick={() => setLoad(true)}>
-              {k.mapLoad}
-            </button>
-            <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className="link font-display font-bold text-accent-strong">
-              {k.mapOpen}
-            </a>
-          </div>
-        </div>
-      )}
+      </div>
+      <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className="group mt-4 inline-flex items-center gap-2 font-display font-bold text-accent-strong">
+        <span className="link">{k.mapOpen}</span>
+        <Arrow className="transition-transform duration-200 group-hover:translate-x-1" />
+      </a>
     </div>
   )
 }

@@ -101,8 +101,6 @@ export interface Content {
     hoursLines: string[]
     register: string
     mapTitle: string
-    mapNote: string
-    mapLoad: string
     mapOpen: string
     mapFrameTitle: string
   }
@@ -134,14 +132,10 @@ const de: Content = {
   },
   nav: { about: 'Über uns', contact: 'Kontakt' },
   alts: {
-    simaticS5: 'Siemens Simatic S5-100U mit CPU 103, eine Steuerung der S5-Generation',
     pg730: 'Siemens Programmiergerät PG 730 für Simatic S5',
     s71500: 'Siemens Simatic S7-1500 in einem Steuerungsschrank',
     klemmen: 'Verdrahtete Reihenklemmen in einem Schaltschrank',
     tig: 'TIG-Schweissbrenner mit hellem Lichtbogen an einer Blechnaht',
-    tigWorkshop: 'Schweisser beim TIG-Schweissen an einer Werkbank',
-    weldSeam: 'Umlaufende Schweissnaht an einem Edelstahlrohr',
-    seedamm: 'Blick von der Luegete über Pfäffikon SZ zum Seedamm und Zürichsee',
   },
   home: {
     meta: {
@@ -307,8 +301,6 @@ const de: Content = {
     hoursLines: ['Mo – Fr: 08:00 – 12:00', '13:00 – 17:30', 'Sa – So: Geschlossen'],
     register: 'Handelsregister',
     mapTitle: 'Anfahrt',
-    mapNote: 'Die Karte stammt von Google Maps. Sie wird erst geladen, wenn Sie darauf klicken.',
-    mapLoad: 'Karte laden',
     mapOpen: 'In Google Maps öffnen',
     mapFrameTitle: 'Karte: Porzi Tech GmbH, Churerstrasse 160A, Pfäffikon SZ',
   },
@@ -345,14 +337,10 @@ const en: Content = {
   },
   nav: { about: 'About us', contact: 'Contact' },
   alts: {
-    simaticS5: 'Siemens Simatic S5-100U with CPU 103, a controller of the S5 generation',
     pg730: 'Siemens PG 730 programming device for Simatic S5',
     s71500: 'Siemens Simatic S7-1500 in a control cabinet',
     klemmen: 'Wired terminal blocks in a control cabinet',
     tig: 'TIG welding torch with a bright arc on a sheet-metal seam',
-    tigWorkshop: 'Welder TIG welding at a workbench',
-    weldSeam: 'Circumferential weld seam on a stainless steel tube',
-    seedamm: 'View from the Luegete over Pfäffikon SZ to the Seedamm and Lake Zurich',
   },
   home: {
     meta: {
@@ -518,8 +506,6 @@ const en: Content = {
     hoursLines: ['Mon – Fri: 08:00 – 12:00', '13:00 – 17:30', 'Sat – Sun: closed'],
     register: 'Commercial register',
     mapTitle: 'Directions',
-    mapNote: 'The map is provided by Google Maps. It only loads once you click it.',
-    mapLoad: 'Load map',
     mapOpen: 'Open in Google Maps',
     mapFrameTitle: 'Map: Porzi Tech GmbH, Churerstrasse 160A, Pfäffikon SZ',
   },
